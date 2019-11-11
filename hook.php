@@ -4,41 +4,41 @@
  */
 
 function newsletter_ajax() {
-		$target_list = 'XXXXXXX';
-		$apiKey = 'XXXXXXX';
-		$accessToken = 'XXXXXXX';
-		$endpoint = 'https://api.constantcontact.com/v2/contacts?action_by=ACTION_BY_OWNER&api_key=' . $apiKey;
+	$target_list = 'XXXXXXX';
+	$apiKey = 'XXXXXXX';
+	$accessToken = 'XXXXXXX';
+	$endpoint = 'https://api.constantcontact.com/v2/contacts?action_by=ACTION_BY_OWNER&api_key=' . $apiKey;
 		
-		$data = array (
-			'lists' => array( array( 'id'=>$target_list ) ),
-			'email_addresses' => array( array( 'email_address' => $_POST['email'] ) ),
-			'first_name' => $_POST['first_name'],
-			'last_name' => $_POST['last_name'],
-			'company_name' => $_POST['company_name'],
-		);
-		$jsonData = json_encode($data);
+	$data = array (
+		'lists' => array( array( 'id'=>$target_list ) ),
+		'email_addresses' => array( array( 'email_address' => $_POST['email'] ) ),
+		'first_name' => $_POST['first_name'],
+		'last_name' => $_POST['last_name'],
+		'company_name' => $_POST['company_name'],
+	);
+	$jsonData = json_encode($data);
 		
-		//open connection
-		$ch = curl_init();
+	//open connection
+	$ch = curl_init();
 		
-		//set the url, number of POST vars, POST data
-		curl_setopt($ch,CURLOPT_URL, $endpoint);
-		curl_setopt($ch,CURLOPT_POST, true);
+	//set the url, number of POST vars, POST data
+	curl_setopt($ch,CURLOPT_URL, $endpoint);
+	curl_setopt($ch,CURLOPT_POST, true);
 		
-		//So that curl_exec returns the contents of the cURL; rather than echoing it
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+	//So that curl_exec returns the contents of the cURL; rather than echoing it
+	curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 		
-		//Attach our encoded JSON string to the POST fields.
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+	//Attach our encoded JSON string to the POST fields.
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 		
-		$authBearer = 'Authorization: Bearer ' . $accessToken;
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-			$authBearer,                                                                     
-		    'Content-Type: application/json'  
-		));  
+	$authBearer = 'Authorization: Bearer ' . $accessToken;
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+		$authBearer,                                                                     
+		'Content-Type: application/json'  
+	));  
 
-		//execute post
-		$result = curl_exec($ch);
+	//execute post
+	$result = curl_exec($ch);
 
 }
 
